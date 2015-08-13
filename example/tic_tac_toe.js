@@ -1,22 +1,19 @@
-var model = require("./model.js")()
 
-var scoreFunction = require("./score.js")(model);
+var model = require("./tic_tac_toe/model.js")()
 
-var randomScoreFunction = function(move,callback) {
-	scoreFunction(move, function(score) {
-		callback( score + Math.random() * .1 )
-	})
+var scoreFunction = require("./tic_tac_toe/score.js")(model)
 
+var generateMoves = require("./tic_tac_toe/generateMoves.js")(model)
+
+var checkWinConditions = function ( move ) {
+	return model.checkWinConditions(move)
 }
 
 var minimax = require("../alphabeta.js")({
-	scoreFunction : randomScoreFunction,
-	generateMoves : require("./generateMoves.js")(model),
-	checkWinConditions : function ( move ) {
-		return model.checkWinConditions(move)
-	}
+	scoreFunction : scoreFunction,
+	generateMoves : generateMoves,
+	checkWinConditions : checkWinConditions
 })
-
 
 
 var next = function( depth , tag , minimax , callback ) {

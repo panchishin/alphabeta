@@ -5,9 +5,9 @@ module.exports = function( modelParameter ) {
 	return function( move , callback ) {
 
 		if ( model.checkWinConditions(move) ) {
-			return callback(1);
+			return callback( Number.POSITIVE_INFINITY );
 		}
-		return callback(0);
+		return callback( Math.random() );
 	}
 }
 

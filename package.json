@@ -1,8 +1,8 @@
 {
-  "name": "minimax",
+  "name": "alphabeta",
   "version": "0.0.1",
-  "description": "a general minimax framework",
-  "main": "minimax.js",
+  "description": "a general minimax framework which uses alphabeta",
+  "main": "alphabeta.js",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,7 +19,7 @@
     "ai"
   ],
   "author": "Anton Panchishin",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/panchishin/minimax/issues"
   },

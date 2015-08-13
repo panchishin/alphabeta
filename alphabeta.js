@@ -1,3 +1,5 @@
+(function(){
+
 var MAX_SCORE = Math.pow(10,50);
 
 var scoreModifier = function( moveDepth ) {
@@ -178,3 +180,4 @@ module.exports = function( initialization ) {
 	}
 }
 
+})();

@@ -2,15 +2,15 @@
 
 var MAX_SCORE = Math.pow(10,50);
 
-var scoreModifier = function( moveDepth ) {
+function scoreModifier( moveDepth ) {
 	return ( moveDepth % 2 ) * 2 - 1  // odd levels are players move, even are opponent
 }
 	
-var calculateTopLevel = function( workQueue ) { 
+function calculateTopLevel( workQueue ) { 
 	return workQueue[0] ? Math.max( workQueue[0].depth - 1 , 0 ) : 0
 }
 	
-var prune = function( depth , workQueue ) {
+function prune( depth , workQueue ) {
 	while( workQueue[0] && workQueue[0].depth > depth ) {
 		workQueue.shift()
 	}
@@ -31,14 +31,14 @@ var minimizeLogic = {
 	getElseScore : function( parent ) { return parent.beta }
 }
 
-var updateAllParentsAlphaBetaBasedOnScore = function( workItem , workQueue ) {
+function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 
 	// update the previous minimax scores
 	var topLevel = calculateTopLevel(workQueue)
 	var score = workItem.score
 	var parent = workItem.previous
 
-	var updateParentAlphaBeta = function( score , parent ) {
+	function updateParentAlphaBeta( score , parent ) {
 		var logic = parent.depth % 2 == 0 ? maximizeLogic : minimizeLogic
 		
 		if ( logic.isPrune(score,parent) ) {
@@ -61,7 +61,7 @@ var updateAllParentsAlphaBetaBasedOnScore = function( workItem , workQueue ) {
 
 }
 
-var expandWorkItem = function( generateMoves , workItem , workQueue ) {
+function expandWorkItem( generateMoves , workItem , workQueue ) {
 
 	if ( workItem.previous ) {
 		workItem.alpha = workItem.previous.alpha
@@ -84,7 +84,7 @@ var expandWorkItem = function( generateMoves , workItem , workQueue ) {
 	
 }
 
-module.exports = function( initialization ) {
+module.exports = function alphabeta( initialization ) {
 
 	var scoreFunction = initialization.scoreFunction
 	var generateMoves = initialization.generateMoves
@@ -105,7 +105,7 @@ module.exports = function( initialization ) {
 	
 	
 	return {
-		setup : function( move , depthParameter , alpha , beta ) {
+		setup : function setup( move , depthParameter , alpha , beta ) {
 			start = move
 			alpha = alpha == undefined ? Number.NEGATIVE_INFINITY : alpha
 			beta  = beta  == undefined ? Number.POSITIVE_INFINITY : beta
@@ -114,22 +114,22 @@ module.exports = function( initialization ) {
 			top = workQueue[0]
 		},
 
-		prediction : function() {
+		prediction : function prediction() {
 			return top.best || {}
 		},
 
-		best : function() {
+		best : function best() {
 			if ( ! top.best || ! top.best.move ) { return false }
 			var move = top.best.move
 			while( move.previous && move.previous != start ) { move = move.previous }
 			return move
 		},
 
-		alpha : function() {
+		alpha : function alpha() {
 			return top.alpha 
 		},
 		
-		step : function( callback ) {
+		step : function step( callback ) {
 			var workItem = workQueue.shift()
 			if ( ! workItem ) { callback(false); return }
 
@@ -162,7 +162,7 @@ module.exports = function( initialization ) {
 			callback(false)
 		},
 		
-		allSteps : function( callback , count ) {
+		allSteps : function allSteps( callback , count ) {
 			count = count ? count : 0
 			var that = this
 			that.step( function( hasMore ) {

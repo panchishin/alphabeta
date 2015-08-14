@@ -129,4 +129,5 @@ Execute the tic tac toe example like so
 # References
 
 [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
+
 [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)

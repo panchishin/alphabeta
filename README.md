@@ -116,16 +116,16 @@ If you want to know the predicted final state if the everything unfolds as the a
 Execute the *tic tac toe* example like so
 
 	# player 1 and 2 both only get 1 look-ahead
-	node example/tic_tac_toe.js 1 1
+	node example/tic-tac-toe/index.js 1 1
 
 	# player 2 gets 3 look-aheads
-	node example/tic_tac_toe.js 1 3
+	node example/tic-tac-toe/index.js 1 3
 
 	# player 1 gets 3 look-aheads
-	node example/tic_tac_toe.js 1 1
+	node example/tic-tac-toe/index.js 1 1
 
 	# player 1 and 2 both only get 9 look-ahead
-	node example/tic_tac_toe.js 9 9
+	node example/tic-tac-toe/index.js 9 9
 
 # FAQ
 
@@ -133,7 +133,7 @@ Execute the *tic tac toe* example like so
 
 **Why is there a .step(callback) function and not just .stepAll(callback)?**  Depending on the depthParameter and the average number of moves generated from **generateMovesFunction** calculating the best next state can take a very long time.  Using **.step(callback)** allows you to move the calculation forward towards completion without blocking and exit when you want, such as after 10 seconds.
 
-**You use a move object in the tic tac toe example and not a state object, why?** It is just named differently but is is the state of the tic tac toe game.  I can see how that is confusing, but I wrote the example before thinking of how it would work with the naming convention in the documentation.
+**You use a move object in the tic tac toe example and not a state object, why?** It is just named differently but it is the state of the tic tac toe game.  I can see how that is confusing.  I wrote the example before thinking of how it would work with the naming convention in the documentation.
 
 # References
 

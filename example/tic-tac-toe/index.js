@@ -1,15 +1,15 @@
 
-var model = require("./tic_tac_toe/model.js")()
+var model = require("./model.js")()
 
-var scoreFunction = require("./tic_tac_toe/score.js")(model)
+var scoreFunction = require("./score.js")(model)
 
-var generateMoves = require("./tic_tac_toe/generateMoves.js")(model)
+var generateMoves = require("./generateMoves.js")(model)
 
 var checkWinConditions = function ( move ) {
 	return model.checkWinConditions(move)
 }
 
-var minimax = require("../alphabeta.js")({
+var minimax = require("../../alphabeta.js")({
 	scoreFunction : scoreFunction,
 	generateMoves : generateMoves,
 	checkWinConditions : checkWinConditions

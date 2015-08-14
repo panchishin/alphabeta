@@ -46,10 +46,10 @@ A typical callback is as follows:
 
 'step' moves the calculator ahead by one step.  Depending on the number of moves generated and the depthParameter there could be hundreds, thousands, millions, or more steps needed before the calculator finishes.  alphabeta.best() returns the best state.
 
-## alphabeta.stepAll
+## alphabeta.allSteps
 To execute all the steps until alphabeta has found the best move for the depth call stepAll like so:
 
-	alphabeta.stepAll( callback );
+	alphabeta.allSteps( callback );
 
 A typical callback is as follows
 

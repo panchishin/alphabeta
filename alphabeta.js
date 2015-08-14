@@ -2,8 +2,8 @@
 
 var MAX_SCORE = Math.pow(10,50);
 
-function scoreModifier( moveDepth ) {
-	return ( moveDepth % 2 ) * 2 - 1  // odd levels are players move, even are opponent
+function scoreModifier( stateDepth ) {
+	return ( stateDepth % 2 ) * 2 - 1  // odd levels are players state, even are opponent
 }
 	
 function calculateTopLevel( workQueue ) { 
@@ -71,11 +71,11 @@ function expandWorkItem( generateMoves , workItem , workQueue ) {
 		workItem.beta = workItem.previous.beta
 	}
 
-	var moves = generateMoves( workItem.move )
-	for ( var i = moves.length - 1 ; i >= 0 ; i-- ) {
-		var move = moves[i]
+	var stateList = generateMoves( workItem.state )
+	for ( var i = stateList.length - 1 ; i >= 0 ; i-- ) {
+		var state = stateList[i]
 		workQueue.unshift({ 
-			move : move , 
+			state : state , 
 			depth : workItem.depth + 1 , 
 			previous : workItem , 
 			alpha : workItem.alpha , 
@@ -83,7 +83,7 @@ function expandWorkItem( generateMoves , workItem , workQueue ) {
 			best : workItem.best
 		})
 	}
-	return moves.length;
+	return stateList.length;
 	
 }
 
@@ -99,7 +99,7 @@ module.exports = function alphabeta( initialization ) {
 	var start = {}
 
 	function scoreWorkItem( workItem , callback ) {
-		scoreFunction( workItem.move , function( score ) { 
+		scoreFunction( workItem.state , function( score ) { 
 			workItem.score = score * scoreModifier( workItem.depth )				
 			workQueue.unshift(workItem)
 			callback(true);
@@ -108,11 +108,11 @@ module.exports = function alphabeta( initialization ) {
 	
 	
 	return {
-		setup : function setup( move , depthParameter , alpha , beta ) {
-			start = move
+		setup : function setup( state , depthParameter , alpha , beta ) {
+			start = state
 			alpha = alpha == undefined ? Number.NEGATIVE_INFINITY : alpha
 			beta  = beta  == undefined ? Number.POSITIVE_INFINITY : beta
-			workQueue = [ { move : move , depth : 0 , alpha : alpha , beta : beta } ]
+			workQueue = [ { state : state , depth : 0 , alpha : alpha , beta : beta } ]
 			depth = depthParameter ? depthParameter : 1
 			top = workQueue[0]
 		},
@@ -122,9 +122,9 @@ module.exports = function alphabeta( initialization ) {
 		},
 
 		best : function best() {
-			if ( ! top.best || ! top.best.move ) { return false }
-			if ( ! top.prefer || ! top.prefer.move ) { return false }
-			return top.prefer.move;
+			if ( ! top.best || ! top.best.state ) { return false }
+			if ( ! top.prefer || ! top.prefer.state ) { return false }
+			return top.prefer.state;
 		},
 
 		alpha : function alpha() {
@@ -140,7 +140,7 @@ module.exports = function alphabeta( initialization ) {
 				updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue );
 				callback(true); return
 
-			} else if ( workItem.depth > 0 && checkWinConditions( workItem.move ) ) {
+			} else if ( workItem.depth > 0 && checkWinConditions( workItem.state ) ) {
 
 				workItem.score = MAX_SCORE * scoreModifier( workItem.depth )
 				workQueue.unshift(workItem)

@@ -129,11 +129,11 @@ Execute the *tic tac toe* example like so
 
 # FAQ
 
-*What is the state object?*  It is whatever you decided is best for your problem.  It is what **generateMovesFunction** creates and what **scoreFunction** takes as an argument.  If your problem is tic tac toe, then perhaps state contains the current board and some other data that you find interesting such as what the previous move was.
+**What is the state object?**  It is whatever you decided is best for your problem.  It is what **generateMovesFunction** creates and what **scoreFunction** takes as an argument.  If your problem is tic tac toe, then perhaps state contains the current board and some other data that you find interesting such as what the previous move was.
 
-*Why is there a **.step(callback)** function and not just **.stepAll(callback)**?  Depending on the depthParameter and the average number of moves generated from **generateMovesFunction** calculating the best next state can take a very long time.  Using **.step(callback)** allows you to move the calculation forward towards completion without blocking and exit when you want, such as after 10 seconds.
+**Why is there a .step(callback) function and not just .stepAll(callback)?**  Depending on the depthParameter and the average number of moves generated from **generateMovesFunction** calculating the best next state can take a very long time.  Using **.step(callback)** allows you to move the calculation forward towards completion without blocking and exit when you want, such as after 10 seconds.
 
-*You use a move object in the tic tac toe example and not a state object, why?* It is just named differently but is is the state of the tic tac toe game.  I can see how that is confusing, but I wrote the example before thinking of how it would work with the naming convention in the documentation.
+**You use a move object in the tic tac toe example and not a state object, why?** It is just named differently but is is the state of the tic tac toe game.  I can see how that is confusing, but I wrote the example before thinking of how it would work with the naming convention in the documentation.
 
 # References
 

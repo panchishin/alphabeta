@@ -1,6 +1,6 @@
 {
   "name": "alphabeta",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "a general minimax framework which uses alphabeta",
   "main": "alphabeta.js",
   "devDependencies": {},
@@ -25,7 +25,6 @@
     "minimax rest"
   ],
   "author": "Anton Panchishin",
-  "readme": "see README.md file",
   "readmeFilename": "README.md",
   "license": "MIT",
   "bugs": {

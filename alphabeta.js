@@ -167,7 +167,7 @@ module.exports = function alphabeta( initialization ) {
 			var that = this
 			that.step( function( hasMore ) {
 				if ( hasMore ) {
-					if ( count > 300 ) {
+					if ( count > 20 ) {
 						setTimeout( function() { that.allSteps(callback) } , 1 )
 					} else {
 						that.allSteps(callback,count+1)

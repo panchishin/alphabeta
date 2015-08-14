@@ -37,7 +37,7 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 	var topLevel = calculateTopLevel(workQueue)
 	var score = workItem.score
 	var parent = workItem.previous
-	var prefer = workItem
+	var best = workItem
 
 	function updateParentAlphaBeta( score , parent ) {
 		var logic = parent.depth % 2 == 0 ? maximizeLogic : minimizeLogic
@@ -47,18 +47,18 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 		} 
 		if ( logic.isUpdate(score,parent) ) {
 			logic.doUpdate(score,parent)
-			parent.best = workItem
-			parent.prefer = prefer
+			parent.prediction = workItem
+			parent.best = best
 		} else {
 			score = logic.getElseScore(parent)
-			workItem = parent.best
+			workItem = parent.prediction
 		}
 		return score
 	}
 
 	while( parent && parent.depth >= topLevel ) {
 		score = updateParentAlphaBeta(score,parent)
-		prefer = parent
+		best = parent
 		parent = parent.previous					
 	}
 
@@ -80,7 +80,7 @@ function expandWorkItem( generateMoves , workItem , workQueue ) {
 			previous : workItem , 
 			alpha : workItem.alpha , 
 			beta : workItem.beta ,
-			best : workItem.best
+			prediction : workItem.prediction
 		})
 	}
 	return stateList.length;
@@ -118,13 +118,13 @@ module.exports = function alphabeta( initialization ) {
 		},
 
 		prediction : function prediction() {
-			return top.best || {}
+			return top.prediction || {}
 		},
 
 		best : function best() {
+			if ( ! top.prediction || ! top.prediction.state ) { return false }
 			if ( ! top.best || ! top.best.state ) { return false }
-			if ( ! top.prefer || ! top.prefer.state ) { return false }
-			return top.prefer.state;
+			return top.best.state;
 		},
 
 		alpha : function alpha() {

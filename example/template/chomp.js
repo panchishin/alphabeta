@@ -1,5 +1,5 @@
 function createInitialState( ) {
-	var someState = { linelength : 10 , player : "first" , previous : null , move : "started" };
+	var someState = { linelength : 10 , player : "first" , move : "started" };
 	return someState;
 }
 
@@ -18,8 +18,7 @@ function generateMoves( state ) {
 		var someState = { 
 			linelength : state.linelength - chompedLength , 
 			player : ( state.player == "first" ? "second" : "first" ),
-			move : "ate " + chompedLength + " units",
-			previous : state
+			move : "ate " + chompedLength + " units"
 		};
 		return someState;
 	}

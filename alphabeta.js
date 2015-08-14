@@ -37,6 +37,7 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 	var topLevel = calculateTopLevel(workQueue)
 	var score = workItem.score
 	var parent = workItem.previous
+	var prefer = workItem
 
 	function updateParentAlphaBeta( score , parent ) {
 		var logic = parent.depth % 2 == 0 ? maximizeLogic : minimizeLogic
@@ -47,6 +48,7 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 		if ( logic.isUpdate(score,parent) ) {
 			logic.doUpdate(score,parent)
 			parent.best = workItem
+			parent.prefer = prefer
 		} else {
 			score = logic.getElseScore(parent)
 			workItem = parent.best
@@ -56,6 +58,7 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 
 	while( parent && parent.depth >= topLevel ) {
 		score = updateParentAlphaBeta(score,parent)
+		prefer = parent
 		parent = parent.previous					
 	}
 
@@ -120,9 +123,8 @@ module.exports = function alphabeta( initialization ) {
 
 		best : function best() {
 			if ( ! top.best || ! top.best.move ) { return false }
-			var move = top.best.move
-			while( move.previous && move.previous != start ) { move = move.previous }
-			return move
+			if ( ! top.prefer || ! top.prefer.move ) { return false }
+			return top.prefer.move;
 		},
 
 		alpha : function alpha() {

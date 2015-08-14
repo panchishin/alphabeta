@@ -113,6 +113,8 @@ If you want to know the predicted final state if the everything unfolds as the a
 
 # Example
 
+## Tic Tac Toe
+
 Execute the *tic tac toe* example like so
 
 	# player 1 and 2 both only get 1 look-ahead
@@ -126,6 +128,18 @@ Execute the *tic tac toe* example like so
 
 	# player 1 and 2 both only get 9 look-ahead
 	node example/tic-tac-toe/index.js 9 9
+
+## Template
+
+There is an empty template with 'TODO' comments to create a fully working computer vs computer scenario.
+
+	node example/template/index.js
+
+## Chomp (from template)
+
+Chomp is a trivial game of two players.  Each player can eat 1, 2, or 3 pieces of a line of 10 pieces long.  The player who eats the last peices wins.  This example uses template/index.js as a boilerplate.
+
+	node example/template/chomp.js
 
 # FAQ
 

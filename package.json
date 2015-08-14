@@ -1,6 +1,6 @@
 {
   "name": "alphabeta",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "a general minimax framework which uses alphabeta",
   "main": "alphabeta.js",
   "devDependencies": {},

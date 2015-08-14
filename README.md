@@ -74,8 +74,10 @@ The generateMovesFunction that you provide is a synchronous function that return
 	generateMovesFunction( currentState ) {
 		var nextPossibleStates = [];
 
-		// use the currentState and possibly some other info to create new state objects
-		// which would represent valid next states.  If this is a game, then the state
+		// use the currentState and possibly some 
+		// other info to create new state objects
+		// which would represent valid next states.
+		// If this is a game, then the state
 		// is the game board and move as an object
 
 		// for ( item in a list of possible moves ) {
@@ -93,7 +95,8 @@ The checkWinConditionsFunction that you provide is a synchronous function that c
 
 	checkWinConditionsFunction( state ) {
 		if ( /* state is a win or positive end condition */ ) {
-			return true; // anything truthy such as 'true' or a string specifying the reason
+			return true; // anything truthy such as 
+						 //'true' or a string specifying the reason
 		} else {
 			return false; // anything falsy such as null or undefined
 		}
@@ -106,3 +109,24 @@ If you want to know the best score found you can use
 If you want to know the predicted final state if the everything unfolds as the alphabeta calculator predicts use:
 
 	var state = alphabeta.prediction();
+
+# Example
+
+Execute the tic tac toe example like so
+
+	# player 1 and 2 both only get 1 look-ahead
+	node example/tic_tac_toe.js 1 1
+
+	# player 2 gets 3 look-aheads
+	node example/tic_tac_toe.js 1 3
+
+	# player 1 gets 3 look-aheads
+	node example/tic_tac_toe.js 1 1
+
+	# player 1 and 2 both only get 9 look-ahead
+	node example/tic_tac_toe.js 9 9
+
+# References
+
+[Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
+[Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)

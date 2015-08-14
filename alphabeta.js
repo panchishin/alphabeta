@@ -108,12 +108,13 @@ module.exports = function alphabeta( initialization ) {
 	
 	
 	return {
-		setup : function setup( state , depthParameter , alpha , beta ) {
-			start = state
-			alpha = alpha == undefined ? Number.NEGATIVE_INFINITY : alpha
-			beta  = beta  == undefined ? Number.POSITIVE_INFINITY : beta
-			workQueue = [ { state : state , depth : 0 , alpha : alpha , beta : beta } ]
-			depth = depthParameter ? depthParameter : 1
+		setup : function setup( params ) { // state , depth , alpha , beta ) {
+			params = typeof params == "object" ? params : { state : {} }
+			start = params.state
+			params.alpha = params.alpha == undefined ? Number.NEGATIVE_INFINITY : params.alpha
+			params.beta  = params.beta  == undefined ? Number.POSITIVE_INFINITY : params.beta
+			workQueue = [ { state : params.state , depth : 0 , alpha : params.alpha , beta : params.beta } ]
+			depth = params.depth ? params.depth : 1
 			top = workQueue[0]
 		},
 

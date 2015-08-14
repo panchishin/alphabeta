@@ -5,8 +5,8 @@ var scoreFunction = require("./score.js")(model)
 
 var generateMoves = require("./generateMoves.js")(model)
 
-var checkWinConditions = function ( move ) {
-	return model.checkWinConditions(move)
+var checkWinConditions = function ( state ) {
+	return model.checkWinConditions( state )
 }
 
 var minimax = require("../../alphabeta.js")({
@@ -17,14 +17,14 @@ var minimax = require("../../alphabeta.js")({
 
 
 var next = function( depth , tag , minimax , callback ) {
-	minimax.setup( move , depth )
+	minimax.setup( { state : state , depth : depth } )
 	
-	minimax.allSteps( function (nextmove) {
-		move = nextmove
-		if ( move ) {
-			var win = model.checkWinConditions(move)
+	minimax.allSteps( function (nextstate) {
+		state = nextstate
+		if ( state ) {
+			var win = model.checkWinConditions(state)
 			if ( win ) {
-				wins[move.color]++
+				wins[state.color]++
 				callback( false )
 				return
 			} else {
@@ -58,11 +58,11 @@ function roundByRoundTillThereIsAWinner(callback) {
 
 
 var wins = { red : 0 , blue : 0 , draw : 0 }
-var move = model.createFirstMove()
+var state = model.createFirstMove()
 
 function doThisManyGames( count ) {
 
-	move = model.createFirstMove()
+	state = model.createFirstMove()
 
 	roundByRoundTillThereIsAWinner( function(wins) { 
 		process.stdout.write( JSON.stringify(wins) + "\n")

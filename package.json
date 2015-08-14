@@ -14,9 +14,15 @@
   "keywords": [
     "minimax",
     "alphabeta",
+    "minimax alphabeta",
     "game logic",
     "chess logic",
-    "ai"
+    "ai",
+    "asynchronous",
+    "alphabeta db",
+    "alphabeta rest",
+    "minimax db",
+    "minimax rest"
   ],
   "author": "Anton Panchishin",
   "license": "MIT",

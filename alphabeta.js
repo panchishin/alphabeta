@@ -108,7 +108,7 @@ module.exports = function alphabeta( initialization ) {
 	
 	
 	return {
-		setup : function setup( params ) { // state , depth , alpha , beta ) {
+		setup : function setup( params ) {
 			params = typeof params == "object" ? params : { state : {} }
 			start = params.state
 			params.alpha = params.alpha == undefined ? Number.NEGATIVE_INFINITY : params.alpha
@@ -165,20 +165,27 @@ module.exports = function alphabeta( initialization ) {
 			callback(false)
 		},
 		
-		allSteps : function allSteps( callback , count ) {
-			count = count ? count : 0
+		_stepUntilTime : function stepUntilTime( callback , timeout , count ) {
 			var that = this
 			that.step( function( hasMore ) {
-				if ( hasMore ) {
+				if ( hasMore && timeout > (new Date()).getTime() ) {
 					if ( count > 20 ) {
-						setTimeout( function() { that.allSteps(callback) } , 1 )
+						setTimeout( function() { that._stepUntilTime( callback , timeout , 0 ) } , 1 )
 					} else {
-						that.allSteps(callback,count+1)
+						that._stepUntilTime( callback, timeout , count+1 )
 					}
 				} else {
 					callback(that.best())
 				}
 			})
+		},
+
+		stepForMilliseconds : function stepForMilliseconds( milliseconds , callback ) {
+			this._stepUntilTime( callback , (new Date()).getTime() + milliseconds , 0 )
+		},
+
+		allSteps : function allSteps( callback ) {
+			this._stepUntilTime( callback , Number.POSITIVE_INFINITY , 0 )
 		}
 	}
 }

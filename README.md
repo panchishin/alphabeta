@@ -1,5 +1,5 @@
 # alphabeta
-Minimax implementation using AlphaBeta in Node using asynchronous calls to customizable game logic, scoring, and move generation.
+Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
@@ -19,6 +19,7 @@ Construct an alphabeta calculator like so:
 That creates one instance of an alphabeta calculator which uses the scoring, move generation, and win condition checking that you provide.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of alphabeta each with its own configuration.
 
 ## alphabeta.setup
+Each new turn or new problem will require you to set the current state of alphabeta.  You can reuse the previous configuration unless you want to change the logic (scoring, move generation) that is used.
 Setup or reset the alphabeta calculator with data like so:
 
 	alphabeta.setup( state , depthParameter );
@@ -112,7 +113,7 @@ If you want to know the predicted final state if the everything unfolds as the a
 
 # Example
 
-Execute the tic tac toe example like so
+Execute the *tic tac toe* example like so
 
 	# player 1 and 2 both only get 1 look-ahead
 	node example/tic_tac_toe.js 1 1
@@ -126,8 +127,15 @@ Execute the tic tac toe example like so
 	# player 1 and 2 both only get 9 look-ahead
 	node example/tic_tac_toe.js 9 9
 
+# FAQ
+
+*What is the state object?*  It is whatever you decided is best for your problem.  It is what **generateMovesFunction** creates and what **scoreFunction** takes as an argument.  If your problem is tic tac toe, then perhaps state contains the current board and some other data that you find interesting such as what the previous move was.
+
+*Why is there a **.step(callback)** function and not just **.stepAll(callback)**?  Depending on the depthParameter and the average number of moves generated from **generateMovesFunction** calculating the best next state can take a very long time.  Using **.step(callback)** allows you to move the calculation forward towards completion without blocking and exit when you want, such as after 10 seconds.
+
+*You use a move object in the tic tac toe example and not a state object, why?* It is just named differently but is is the state of the tic tac toe game.  I can see how that is confusing, but I wrote the example before thinking of how it would work with the naming convention in the documentation.
+
 # References
 
-[Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
-
-[Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
+* [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
+* [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)

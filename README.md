@@ -5,6 +5,8 @@ The rational and motivation to use asynchronous calls (specifically to the scori
 
 Help improve this package.  You can [log bugs here](https://github.com/panchishin/alphabeta/issues) even if it's documentation errors or typos.
 
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][npm-url] 
 [![Gitter chat][gitter-image]][gitter-url]
 
 # Usage
@@ -178,3 +180,6 @@ Chomp is a trivial game of two players.  Each player can eat 1, 2, or 3 pieces o
 
 [gitter-url]: https://gitter.im/panchishin/alphabeta
 [gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png
+[downloads-image]: http://img.shields.io/npm/dm/alphabeta.svg
+[npm-url]: https://npmjs.org/package/alphabeta
+[npm-image]: http://img.shields.io/npm/v/alphabeta.svg

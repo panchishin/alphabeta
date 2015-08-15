@@ -4,7 +4,9 @@ Minimax implementation using AlphaBeta in Node using *asynchronous* calls to cus
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
 [![NPM version][npm-image]][npm-url]
-[![Downloads][downloads-image]][npm-url] 
+[![Downloads][downloads-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Coveralls Status][coveralls-image]][coveralls-url]
 [![Gitter chat][gitter-image]][gitter-url]
 
 Help improve this package.  Ask me questions using [![Gitter chat][gitter-image]][gitter-url] or you can [log bugs here](https://github.com/panchishin/alphabeta/issues).  Even what seems trivial such as minor documentation errors or typos.
@@ -209,5 +211,12 @@ node example/template/chomp.js
 [gitter-url]: https://gitter.im/panchishin/alphabeta
 [gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png
 [downloads-image]: http://img.shields.io/npm/dm/alphabeta.svg
+
 [npm-url]: https://npmjs.org/package/alphabeta
 [npm-image]: http://img.shields.io/npm/v/alphabeta.svg
+
+[travis-url]: https://travis-ci.org/panchishin/alphabeta
+[travis-image]: http://img.shields.io/travis/panchishin/alphabeta.svg
+
+[coveralls-url]: https://coveralls.io/r/panchishin/alphabeta
+[coveralls-image]: http://img.shields.io/coveralls/panchishin/alphabeta/master.svg

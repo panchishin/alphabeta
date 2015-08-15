@@ -56,7 +56,7 @@ function doOneRound( state ) {
 
 	console.log("\nThe state is : length " + state.linelength + " because player " + state.player + " " + state.move );
 
-	var depth = 10;	// TODO decide on how many moves to look ahead.  For now it is set to 2
+	var depth = 10;	// TODO decide on how many moves to look ahead.  For now it is set to 10, which is enough to analyze all possible outcomes
 	alphabeta.setup( { state : state , depth : depth } )
 
 	alphabeta.allSteps( function ( bestNextState ) {

@@ -3,6 +3,8 @@ Minimax implementation using AlphaBeta in Node using *asynchronous* calls to cus
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
+Help improve this package.  You can [log bugs here](https://github.com/panchishin/alphabeta/issues) even if it's documentation errors or typos.
+
 # Usage
 
 ## alphabeta configuration
@@ -141,7 +143,7 @@ Execute the *tic tac toe* example like so
 	node example/tic-tac-toe/index.js 1 3
 
 	# player 1 gets 3 look-aheads
-	node example/tic-tac-toe/index.js 1 1
+	node example/tic-tac-toe/index.js 3 1
 
 	# player 1 and 2 both only get 9 look-ahead
 	node example/tic-tac-toe/index.js 9 9

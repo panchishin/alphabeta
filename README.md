@@ -1,4 +1,6 @@
 # alphabeta
+
+[![Join the chat at https://gitter.im/panchishin/alphabeta](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/panchishin/alphabeta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.

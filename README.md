@@ -5,6 +5,8 @@ The rational and motivation to use asynchronous calls (specifically to the scori
 
 Help improve this package.  You can [log bugs here](https://github.com/panchishin/alphabeta/issues) even if it's documentation errors or typos.
 
+[![Gitter chat][gitter-image]][gitter-url]
+
 # Usage
 
 ## alphabeta configuration
@@ -172,3 +174,7 @@ Chomp is a trivial game of two players.  Each player can eat 1, 2, or 3 pieces o
 
 * [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
 * [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
+
+
+[gitter-url]: https://gitter.im/panchishin/alphabeta
+[gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png

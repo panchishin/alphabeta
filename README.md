@@ -15,13 +15,15 @@ Help improve this package.  Ask me questions using [![Gitter chat][gitter-image]
 ## alphabeta configuration
 Construct an alphabeta calculator like so:
 
-	var config = {
-		scoreFunction 		: scoreFunction,
-		generateMoves		: generateMovesFunction,
-		checkWinConditions 	: checkWinConditionsFunction
-	}
+```js
+var config = {
+	scoreFunction 		: scoreFunction,
+	generateMoves		: generateMovesFunction,
+	checkWinConditions 	: checkWinConditionsFunction
+}
 
-	var alphabeta = require('alphabeta')( config );
+var alphabeta = require('alphabeta')( config );
+```
 
 That creates one instance of an alphabeta calculator which uses the scoring, move generation, and win condition checking that you provide.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of alphabeta each with its own configuration.
 

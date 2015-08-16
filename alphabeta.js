@@ -102,7 +102,7 @@ module.exports = function alphabeta( initialization ) {
 		scoreFunction( workItem.state , function( score ) { 
 			workItem.score = score * scoreModifier( workItem.depth )				
 			workQueue.unshift(workItem)
-			callback(true);
+			callback();
 		})
 	}
 	
@@ -134,18 +134,18 @@ module.exports = function alphabeta( initialization ) {
 		
 		step : function step( callback ) {
 			var workItem = workQueue.shift()
-			if ( ! workItem ) { callback(false); return }
+			if ( ! workItem ) { return callback( this.best() ) }
 
 			if ( workItem.score != undefined ) {
 
-				updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue );
-				callback(true); return
+				updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue )
+				return callback()
 
 			} else if ( workItem.depth > 0 && checkWinConditions( workItem.state ) ) {
 
 				workItem.score = MAX_SCORE * scoreModifier( workItem.depth )
 				workQueue.unshift(workItem)
-				callback(true); return
+				return callback()
 				
 			} else if ( workItem.depth < depth ) {
 				
@@ -153,39 +153,39 @@ module.exports = function alphabeta( initialization ) {
 					scoreWorkItem( workItem , callback )
 					return;
 				} else {
-					callback(true); return
+					return callback()
 				}
 				
-			} else if ( workItem.depth == depth ) {
+			} else { // if ( workItem.depth >= depth ) {
 
 				scoreWorkItem( workItem , callback )
 				return;
 				
 			}
-			callback(false)
 		},
 		
-		_stepUntilTime : function stepUntilTime( callback , timeout , count ) {
+		_stepUntilTime : function stepUntilTime( timeout , callback , count ) {
+			count = count ? count : 0
 			var that = this
-			that.step( function( hasMore ) {
-				if ( hasMore && timeout > (new Date()).getTime() ) {
+			that.step( function( bestMove ) {
+				if ( bestMove === undefined && timeout > (new Date()).getTime() ) {
 					if ( count > 20 ) {
-						setTimeout( function() { that._stepUntilTime( callback , timeout , 0 ) } , 1 )
+						setTimeout( function() { that._stepUntilTime( timeout , callback , 0 ) } , 1 )
 					} else {
-						that._stepUntilTime( callback, timeout , count+1 )
+						that._stepUntilTime( timeout , callback, count+1 )
 					}
 				} else {
-					callback(that.best())
+					callback(bestMove)
 				}
 			})
 		},
 
 		stepForMilliseconds : function stepForMilliseconds( milliseconds , callback ) {
-			this._stepUntilTime( callback , (new Date()).getTime() + milliseconds , 0 )
+			this._stepUntilTime( (new Date()).getTime() + milliseconds , callback )
 		},
 
 		allSteps : function allSteps( callback ) {
-			this._stepUntilTime( callback , Number.POSITIVE_INFINITY , 0 )
+			this._stepUntilTime( Number.POSITIVE_INFINITY , callback )
 		}
 	}
 }

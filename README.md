@@ -8,37 +8,48 @@ The rational and motivation to use asynchronous calls (specifically to the scori
 
 # Usage
 
-## AlphaBeta configuration
+## AlphaBeta construction and configuration
+
 Construct an AlphaBeta calculator like so:
 
 ```js
 var config = {
 	scoreFunction 		: scoreFunction,
 	generateMoves		: generateMovesFunction,
-	checkWinConditions 	: checkWinConditionsFunction
+	checkWinConditions 	: checkWinConditionsFunction,
+	state 				: yourInitialStateObject,
+	depth 				: theDepthOfSearch /* a number */
 }
 var alphabeta = require('alphabeta')( config );
 ```
 
-That creates one instance of an AlphaBeta calculator which uses the scoring, move generation, and win condition checking that you provide.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of AlphaBeta each with its own configuration.
+That creates one instance of an AlphaBeta calculator which uses the initial configuration you supply.  All configuration options are optional.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of AlphaBeta each with its own configuration.
 
-## alphabeta.setup
-Each new turn or new problem will require you to set the current state of AlphaBeta.  You can reuse the previous configuration unless you want to change the logic (scoring, move generation) that is used.
-Setup or reset the AlphaBeta calculator with data like so:
+### alphabeta.setup
+Each new turn or new problem will require you to set the current state of AlphaBeta.  Instead of creating a whole new alphabeta you can reuse the old instance and change any of the configuration parameters you choose.  Here is an example of just chaning the state configuration parameter.
 
 ```js
-var setup = {
-	state : yourInitialStateObject,
-	depth : theDepthOfSearch_alsoKnownAsLookAhead
+config = {
+	state : anotherStateObject
 }
 
-alphabeta.setup( setup );
+alphabeta.setup( config );
 ```
 
-'depth' is optional (defaults to 1) and is the depth of search in moves.  Also known as look-ahead.
+### alphabeta.clone
+If you want another alphabeta based on the configuration of another alphabeta but with slight changes use the .clone method and pass in only the configuration changes you want.  This is different than *.setup* in that it creates a whole new alphabeta and does not change the current alphabeta.  In this example the search depth is changed to 7:
 
+```js
+config = {
+	depth : 7
+}
 
-## alphabeta.step
+var anotherAlphaBeta = alphabeta.clone( config );
+```
+
+## Execution
+
+### alphabeta.step
 Call the AlphaBeta calculator like so:
 ```js
 alphabeta.step( function( beststate ) {
@@ -53,7 +64,7 @@ alphabeta.step( function( beststate ) {
 
 'step' moves the calculator ahead by one step.  Depending on the number of moves generated and the depthParameter there could be hundreds, thousands, millions, or more steps needed before the calculator finishes.  alphabeta.best() returns the best state.
 
-## alphabeta.allSteps
+### alphabeta.allSteps
 To execute all the steps until AlphaBeta has found the best move for the depth.  Call like so:
 ```js
 alphabeta.allSteps( function( beststate ) {
@@ -62,7 +73,7 @@ alphabeta.allSteps( function( beststate ) {
 })
 ```
 
-## alphabeta.stepForMilliseconds
+### alphabeta.stepForMilliseconds
 To execute all the steps until AlphaBeta has found the best move for the depth or the number of milliseconds has expired.  Call like so:
 
 ```js
@@ -78,8 +89,40 @@ alphabeta.stepForMilliseconds( milliseconds , function( beststate ) {
 })
 ```
 
+### alphabeta.incrimentDepthForMilliseconds
+Execute all the steps of AlphaBeta like *.stepForMilliseconds*.  If time premits iteratively try larger depths.  This function is especially useful for a *just in time* methodology such that you only have a given time to get the best aswer you can and want to reach the highest depth possible in that time.  Note : the callback does not return a 'beststate'.  Call like so:
 
-## Configuration Functions
+```js
+alphabeta.incrimentDepthForMilliseconds( milliseconds , function( result ) {
+
+	// result.alphabeta is a clone of alphabeta 
+	//    which successfully executed *.stepForMilliseconds*
+	// result.depth is the depth of the clone
+
+	if ( result.alphabeta && result.alphabeta.best() != undefined ) {
+		var beststate = result.alphabeta.best()
+	} else {
+		// not enough time to find any result.
+	}
+})
+```
+
+### Execution results
+
+If you want to know the best score found you can use 
+
+```js
+var score = alphabeta.alpha();
+```
+
+If you want to know the predicted final state if the everything unfolds as the AlphaBeta calculator predicts use:
+
+```js
+var state = alphabeta.prediction();
+```
+
+
+## Configuration Specification
 This is the specification of the configuration functions you pass to AlphaBeta
 
 ### scoreFunction
@@ -131,17 +174,6 @@ checkWinConditionsFunction( state ) {
 }
 ```
 
-If you want to know the best score found you can use 
-
-```js
-var score = alphabeta.alpha();
-```
-
-If you want to know the predicted final state if the everything unfolds as the AlphaBeta calculator predicts use:
-
-```js
-var state = alphabeta.prediction();
-```
 
 # Example
 

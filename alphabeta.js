@@ -87,16 +87,38 @@ function expandWorkItem( generateMoves , workItem , workQueue ) {
 	
 }
 
-module.exports = function alphabeta( initialization ) {
+function alphabetaConstructor( initialization ) {
 
-	var scoreFunction = initialization.scoreFunction
-	var generateMoves = initialization.generateMoves
-	var checkWinConditions = initialization.checkWinConditions
-
-	var workQueue = []
-	var depth = 0
-	var top = {}
+	var scoreFunction = function(callback) { callback(0) }
+	var generateMoves = function() { return [] }
+	var checkWinConditions = function() { return false }
 	var start = {}
+	var depth = 1
+	var startAlpha = Number.NEGATIVE_INFINITY
+	var startBeta = Number.POSITIVE_INFINITY
+	var workQueue = []
+	var top = {}
+
+	function valueOr( value , _default ) {
+		return value ? value : _default
+	}
+
+	function setInitialization( initialization ) {
+		initialization = valueOr( initialization , {} )
+		scoreFunction = valueOr( initialization.scoreFunction , scoreFunction )
+		generateMoves = valueOr( initialization.generateMoves , generateMoves )
+		checkWinConditions = valueOr( initialization.checkWinConditions , checkWinConditions )
+		start = valueOr( initialization.state , start )
+		depth = valueOr( initialization.depth , depth )
+		startAlpha = valueOr( initialization.alpha , startAlpha )
+		startBeta = valueOr( initialization.beta , startBeta )
+
+		workQueue = [ { state : start , depth : 0 , alpha : startAlpha , beta : startBeta } ]
+		top = workQueue[0]
+	}
+
+	setInitialization( initialization )
+
 
 	function scoreWorkItem( workItem , callback ) {
 		scoreFunction( workItem.state , function( score ) { 
@@ -108,14 +130,22 @@ module.exports = function alphabeta( initialization ) {
 	
 	
 	return {
-		setup : function setup( params ) {
-			params = typeof params == "object" ? params : { state : {} }
-			start = params.state
-			params.alpha = params.alpha == undefined ? Number.NEGATIVE_INFINITY : params.alpha
-			params.beta  = params.beta  == undefined ? Number.POSITIVE_INFINITY : params.beta
-			workQueue = [ { state : params.state , depth : 0 , alpha : params.alpha , beta : params.beta } ]
-			depth = params.depth ? params.depth : 1
-			top = workQueue[0]
+		clone : function setup( initialization ) {
+			return alphabetaConstructor( {
+				initialization : initialization,
+				scoreFunction : scoreFunction,
+				generateMoves : generateMoves,
+				checkWinConditions : checkWinConditions,
+				state : start,
+				depth : depth,
+				startAlpha : startAlpha,
+				startBeta : startBeta
+			}).setup( initialization )
+		},
+
+		setup : function setup( initialization ) {
+			setInitialization( initialization )
+			return this
 		},
 
 		prediction : function prediction() {
@@ -184,10 +214,38 @@ module.exports = function alphabeta( initialization ) {
 			this._stepUntilTime( (new Date()).getTime() + milliseconds , callback )
 		},
 
+		incrimentDepthForMilliseconds : function incrimentDepthForMilliseconds( milliseconds , callback , previous ) {
+			var that = this
+			previous = previous ? previous : {
+				alphabeta : this,
+				depth : depth - 1
+			}
+
+			var endTime = (new Date()).getTime() + milliseconds
+
+			// create a new 
+			var alphabeta = that.clone( { depth : previous.depth + 1 } )
+			
+			alphabeta._stepUntilTime( endTime , function( bestState ) {
+				var timeLeft = endTime - (new Date()).getTime()
+				if ( timeLeft > 0 && bestState != undefined ) {
+					setTimeout( function() {
+						alphabeta.incrimentDepthForMilliseconds( timeLeft , callback , { alphabeta : alphabeta , depth : previous.depth + 1 } )
+					}, 1)
+				} else if ( bestState != undefined ) {
+					return callback( { alphabeta : alphabeta , depth : previous.depth + 1 } )
+				} else {
+					return callback( previous )
+				}
+			})
+		},
+
 		allSteps : function allSteps( callback ) {
 			this._stepUntilTime( Number.POSITIVE_INFINITY , callback )
 		}
 	}
 }
+
+module.exports = alphabetaConstructor
 
 })();

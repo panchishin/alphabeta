@@ -119,18 +119,46 @@ module.exports = {
 	},
 
 
-	'complete chomp in 60 seconds' : function(beforeExit, assert) {
+	'complete chomp in 0.5 seconds' : function(beforeExit, assert) {
 
 		var alphabeta = createChompExample(10);
 
 		var n = 0;
-		alphabeta.stepForMilliseconds( 60 * 1000, function( bestMove ) {
+		alphabeta.stepForMilliseconds( 500, function( bestMove ) {
 			n++;
 			assert.equal( 2, bestMove.chompedLength )
 			assert.equal( 8 , bestMove.linelength )
 			assert.equal( 'second' , bestMove.player )
 
 			var predicted = alphabeta.prediction().state
+
+			assert.equal( 3 , predicted.chompedLength )
+			assert.equal( 0 , predicted.linelength )
+			assert.equal( 'second' , predicted.player )
+		})
+
+	    beforeExit(function() {
+	        assert.equal(1, n, 'Ensure timeout is called');
+	    });
+	},
+
+	'complete 6 levels of chomp in 0.5 seconds' : function(beforeExit, assert) {
+
+		var alphabeta = createChompExample(1);
+
+		var n = 0;
+		alphabeta.incrimentDepthForMilliseconds( 500, function( result ) {
+			n++;
+
+			assert.equal( true , result.depth >= 6 )
+
+			var bestMove = result.alphabeta.best()
+
+			assert.equal( 2, bestMove.chompedLength )
+			assert.equal( 8 , bestMove.linelength )
+			assert.equal( 'second' , bestMove.player )
+
+			var predicted = result.alphabeta.prediction().state
 
 			assert.equal( 3 , predicted.chompedLength )
 			assert.equal( 0 , predicted.linelength )

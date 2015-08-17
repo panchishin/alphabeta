@@ -145,9 +145,11 @@ var state = alphabeta.prediction();
 
 # Example
 
+If you have installed this as a npm dependency first change directory to *node_modules/alphabeta/*.
+
 ## Tic Tac Toe
 
-Execute the *tic tac toe* example like so using the command line
+Execute the *tic tac toe* example.  Run the example using the command line like so
 
 ```bash
 # player 1 and 2 both only get 1 look-ahead

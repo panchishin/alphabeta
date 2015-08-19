@@ -1,15 +1,17 @@
-# AlphaBeta 
-
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Auto Test Status][travis-image]][travis-url] [![Gitter chat][gitter-image]][gitter-url] 
 
 Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
+# Table Of Contents
+[TOC]
+
 # Usage
 
 ## AlphaBeta construction and configuration
 
+### alphabeta = require('alphabeta')( config )
 Construct an AlphaBeta calculator like so:
 
 ```js
@@ -25,7 +27,7 @@ var alphabeta = require('alphabeta')( config );
 
 That creates one instance of an AlphaBeta calculator which uses the initial configuration you supply.  All configuration options are optional.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of AlphaBeta each with its own configuration.
 
-### alphabeta.setup
+### alphabeta.setup( config )
 Each new turn or new problem will require you to set the current state of AlphaBeta.  Instead of creating a whole new alphabeta you can reuse the old instance and change any of the configuration parameters you choose.  Here is an example of just chaning the state configuration parameter.
 
 ```js
@@ -36,7 +38,7 @@ config = {
 alphabeta.setup( config );
 ```
 
-### alphabeta.clone
+### alphabeta.clone( config )
 If you want another alphabeta based on the configuration of another alphabeta but with slight changes use the .clone method and pass in only the configuration changes you want.  This is different than *.setup* in that it creates a whole new alphabeta and does not change the current alphabeta.  In this example the search depth is changed to 7:
 
 ```js
@@ -49,7 +51,7 @@ var anotherAlphaBeta = alphabeta.clone( config );
 
 ## Execution
 
-### alphabeta.step
+### alphabeta.step( callback )
 Call the AlphaBeta calculator like so:
 ```js
 alphabeta.step( function( beststate ) {
@@ -64,7 +66,7 @@ alphabeta.step( function( beststate ) {
 
 'step' moves the calculator ahead by one step.  Depending on the number of moves generated and the depthParameter there could be hundreds, thousands, millions, or more steps needed before the calculator finishes.  alphabeta.best() returns the best state.
 
-### alphabeta.allSteps
+### alphabeta.allSteps( callback )
 To execute all the steps until AlphaBeta has found the best move for the depth.  Call like so:
 ```js
 alphabeta.allSteps( function( beststate ) {
@@ -73,7 +75,7 @@ alphabeta.allSteps( function( beststate ) {
 })
 ```
 
-### alphabeta.stepForMilliseconds
+### alphabeta.stepForMilliseconds( milliseconds , callback )
 To execute all the steps until AlphaBeta has found the best move for the depth or the number of milliseconds has expired.  Call like so:
 
 ```js
@@ -89,7 +91,7 @@ alphabeta.stepForMilliseconds( milliseconds , function( beststate ) {
 })
 ```
 
-### alphabeta.incrimentDepthForMilliseconds
+### alphabeta.incrimentDepthForMilliseconds( milliseconds , callback )
 Execute all the steps of AlphaBeta like *.stepForMilliseconds*.  If time premits iteratively try larger depths.  This function is especially useful for a *just in time* methodology such that you only have a given time to get the best aswer you can and want to reach the highest depth possible in that time.  Note : the callback does not return a 'beststate'.  Call like so:
 
 ```js

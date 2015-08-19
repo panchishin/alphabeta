@@ -125,22 +125,22 @@ var state = alphabeta.prediction();
 ## Configuration Specification
 This is the specification of the configuration functions you pass to AlphaBeta
 
-### scoreFunction
+### scoreFunction( state , callback )
 The scoreFunction that you provide is an asynchronous function that evaluates a state like so:
 
 ```js
-scoreFunction( state , scoreCallback ) {
+function yourScoreFunction( state , scoreCallback ) {
 	var scoreNumber = 0;
 	// inspect state and modify the score
 	scoreCallback( scoreNumber );
 }
 ```
 
-### generateMoves
+### generateMoves( state )
 The generateMovesFunction that you provide is a synchronous function that returns a list of possible states like so:
 
 ```js
-generateMovesFunction( currentState ) {
+function yourGenerateMovesFunction( currentState ) {
 	var nextPossibleStates = [];
 
 	// use the currentState and possibly some 
@@ -157,14 +157,14 @@ generateMovesFunction( currentState ) {
 	return nextPossibleStates;
 
 }
-nextPossibleStates = generateMovesFunction( currentState );
+nextPossibleStates = yourGenerateMovesFunction( currentState );
 ```
 
-### checkWinConditionsFunction
+### checkWinConditionsFunction( state )
 The checkWinConditionsFunction that you provide is a synchronous function that checks to see if the state is a good end state such as a winning move.  A psudo code implementation may look like so:
 
 ```js
-checkWinConditionsFunction( state ) {
+function yourCheckWinConditionsFunction( state ) {
 	if ( /* state is a win or positive end condition */ ) {
 		return true; // anything truthy such as 
 					 //'true' or a string specifying the reason

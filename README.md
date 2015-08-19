@@ -1,6 +1,6 @@
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url] 
 
-Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.
+Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.  Because of its *asynchronous* nature, AlphaBeta is *non-blocking*.
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 

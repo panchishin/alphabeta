@@ -4,9 +4,6 @@ Minimax implementation using AlphaBeta in Node using *asynchronous* calls to cus
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
-# Table Of Contents
-[TOC]
-
 # Usage
 
 ## AlphaBeta construction and configuration

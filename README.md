@@ -1,4 +1,4 @@
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Auto Test Status][travis-image]][travis-url] [![Gitter chat][gitter-image]][gitter-url] 
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url] 
 
 Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.
 
@@ -236,3 +236,5 @@ node example/template/chomp.js
 [travis-url]: https://travis-ci.org/panchishin/alphabeta
 [travis-image]: http://img.shields.io/travis/panchishin/alphabeta.svg
 
+[license-image]: https://img.shields.io/npm/l/express.svg
+[license-url]: https://tldrlegal.com/license/mit-license

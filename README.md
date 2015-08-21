@@ -218,6 +218,21 @@ Chomp is a trivial game of two players.  Each player can eat 1, 2, or 3 pieces o
 ```bash
 node example/template/chomp.js
 ```
+## Chase (from template)
+
+Chase is a trivial game of two entities, a preditor and prey.  Each entity can move up to its maximum speed.  There are a lot of win conditions such as the prey getting too far or the preditor running out of energy.  This example uses template/index.js as a boilerplate.
+
+```bash
+# get info
+node example/template/chase.js
+
+# give the entities nearly no brains and watch the prey win
+node example/template/chase.js 1
+
+# but the prey is doomed so long as the preditor plays well
+node example/template/chase.js 4
+
+```
 
 # FAQ
 

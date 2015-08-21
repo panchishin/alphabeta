@@ -75,7 +75,7 @@ function expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyL
 		//process.stdout.write(".")
 		return 0
 	}
-	keyList[uniqueKey(workItem.state)] = true
+	if ( uniqueKey ) keyList[uniqueKey(workItem.state)] = true
 
 	var stateList = generateMoves( workItem.state )
 	for ( var i = stateList.length - 1 ; i >= 0 ; i-- ) {

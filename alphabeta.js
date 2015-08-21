@@ -64,12 +64,18 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 
 }
 
-function expandWorkItem( generateMoves , workItem , workQueue ) {
+function expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyList ) {
 
 	if ( workItem.previous ) {
 		workItem.alpha = workItem.previous.alpha
 		workItem.beta = workItem.previous.beta
 	}
+
+	if ( uniqueKey != undefined && keyList[uniqueKey(workItem.state)] == true ) {
+		//process.stdout.write(".")
+		return 0
+	}
+	keyList[uniqueKey(workItem.state)] = true
 
 	var stateList = generateMoves( workItem.state )
 	for ( var i = stateList.length - 1 ; i >= 0 ; i-- ) {
@@ -92,6 +98,8 @@ function alphabetaConstructor( initialization ) {
 	var scoreFunction = function(callback) { callback(0) }
 	var generateMoves = function() { return [] }
 	var checkWinConditions = function() { return false }
+	var uniqueKey = undefined
+	var keyList = {}
 	var start = {}
 	var depth = 1
 	var startAlpha = Number.NEGATIVE_INFINITY
@@ -107,6 +115,9 @@ function alphabetaConstructor( initialization ) {
 		initialization = valueOr( initialization , {} )
 		scoreFunction = valueOr( initialization.scoreFunction , scoreFunction )
 		generateMoves = valueOr( initialization.generateMoves , generateMoves )
+		uniqueKey = valueOr( initialization.uniqueKey , uniqueKey )
+		keyList = {}
+
 		checkWinConditions = valueOr( initialization.checkWinConditions , checkWinConditions )
 		start = valueOr( initialization.state , start )
 		depth = valueOr( initialization.depth , depth )
@@ -136,6 +147,7 @@ function alphabetaConstructor( initialization ) {
 				scoreFunction : scoreFunction,
 				generateMoves : generateMoves,
 				checkWinConditions : checkWinConditions,
+				uniqueKey : uniqueKey,
 				state : start,
 				depth : depth,
 				startAlpha : startAlpha,
@@ -179,7 +191,7 @@ function alphabetaConstructor( initialization ) {
 				
 			} else if ( workItem.depth < depth ) {
 				
-				if ( expandWorkItem( generateMoves , workItem , workQueue) == 0 ) {
+				if ( expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyList ) == 0 ) {
 					scoreWorkItem( workItem , callback )
 					return;
 				} else {

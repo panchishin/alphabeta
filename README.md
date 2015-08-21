@@ -16,6 +16,7 @@ var config = {
 	scoreFunction 		: scoreFunction,
 	generateMoves		: generateMovesFunction,
 	checkWinConditions 	: checkWinConditionsFunction,
+	uniqueKey			: uniqueKeyFunction, // *NEW* and optional
 	state 				: yourInitialStateObject,
 	depth 				: theDepthOfSearch /* a number */
 }
@@ -166,8 +167,8 @@ function yourGenerateMovesFunction( currentState ) {
 nextPossibleStates = yourGenerateMovesFunction( currentState )
 ```
 
-### checkWinConditionsFunction( state )
-The checkWinConditionsFunction that you provide is a synchronous function that checks to see if the state is a good end state such as a winning move.  A psudo code implementation may look like so:
+### checkWinConditions( state )
+The checkWinConditions function that you provide is a synchronous function that checks to see if the state is a good end state such as a winning move.  A psudo code implementation may look like so:
 
 ```js
 function yourCheckWinConditionsFunction( state ) {
@@ -180,6 +181,15 @@ function yourCheckWinConditionsFunction( state ) {
 }
 ```
 
+### uniqueKey( state )
+If your Generate Moves function has a chance of creating duplicate moves and or does not prune repeated moves, implement the *.uniqueKey* function.  A unique key for your state is the absolute minimum information needed to identify a state as unique.  Perhaps it is all of your state or perhaps it is state.key.  This is an optional configuration which an lead to a great performance boost.
+```js
+function uniqueKey( state ) {
+	// somedata and someotherdata together 
+	// makes a unique key for this example state
+	return state.somedata + state.someotherdata
+}
+```
 
 # Example
 

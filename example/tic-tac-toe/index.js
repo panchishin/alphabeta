@@ -9,9 +9,14 @@ var checkWinConditions = function ( state ) {
 	return model.checkWinConditions( state )
 }
 
+var uniqueKey = function( state ) {
+	return JSON.stringify( [ state.board , state.i , state.j , state.color ] )
+}
+
 var minimax = require("../../alphabeta.js")({
 	scoreFunction : scoreFunction,
 	generateMoves : generateMoves,
+	uniqueKey : uniqueKey,
 	checkWinConditions : checkWinConditions
 })
 

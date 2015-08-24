@@ -6,7 +6,7 @@ The rational and motivation to use asynchronous calls (specifically to the scori
 
 # Usage
 
-## AlphaBeta construction and configuration
+## AlphaBeta construction
 
 ### alphabeta = require('alphabeta')( config )
 Construct an AlphaBeta calculator like so:
@@ -129,7 +129,7 @@ var state = alphabeta.prediction()
 ```
 
 
-## Configuration Specification
+## Configuration
 This is the specification of the configuration functions you pass to AlphaBeta
 
 ### scoreFunction( state , callback )
@@ -182,7 +182,7 @@ function yourCheckWinConditionsFunction( state ) {
 ```
 
 ### uniqueKey( state )
-If your Generate Moves function has a chance of creating duplicate moves and or does not prune repeated moves, implement the *.uniqueKey* function.  A unique key for your state is the absolute minimum information needed to identify a state as unique.  Perhaps it is all of your state or perhaps it is state.key.  This is an optional configuration which an lead to a great performance boost.
+If your Generate Moves function has a chance of creating duplicate moves and or does not prune repeated moves, implement the *.uniqueKey* function.  A unique key for your state is the absolute minimum information needed to identify a state as unique.  Perhaps it is all of your state or perhaps it is state.key.  This is an optional configuration which can lead to a great performance boost and in some cases double the search depth per time.
 ```js
 function uniqueKey( state ) {
 	// somedata and someotherdata together 
@@ -257,16 +257,16 @@ node example/template/chase.js 4
 * [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
 * [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
 
+[npm-url]: https://npmjs.org/package/alphabeta
+[npm-image]: http://img.shields.io/npm/v/alphabeta.svg
 
 [gitter-url]: https://gitter.im/panchishin/alphabeta
 [gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png
 [downloads-image]: http://img.shields.io/npm/dm/alphabeta.svg
-
-[npm-url]: https://npmjs.org/package/alphabeta
-[npm-image]: http://img.shields.io/npm/v/alphabeta.svg
 
 [travis-url]: https://travis-ci.org/panchishin/alphabeta
 [travis-image]: http://img.shields.io/travis/panchishin/alphabeta.svg
 
 [license-image]: https://img.shields.io/badge/license-Unlicense-green.svg
 [license-url]: https://tldrlegal.com/license/unlicense
+

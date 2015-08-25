@@ -240,13 +240,17 @@ function alphabetaConstructor( initialization ) {
 			
 			alphabeta._stepUntilTime( endTime , function( bestState ) {
 				var timeLeft = endTime - (new Date()).getTime()
+				var result = { alphabeta : alphabeta , depth : previous.depth + 1 }
 				if ( timeLeft > 0 && bestState != undefined ) {
 					setTimeout( function() {
-						alphabeta.incrimentDepthForMilliseconds( timeLeft , callback , { alphabeta : alphabeta , depth : previous.depth + 1 } )
+						alphabeta.incrimentDepthForMilliseconds( 
+							timeLeft , callback , result
+						)
 					}, 1)
 				} else if ( bestState != undefined ) {
-					return callback( { alphabeta : alphabeta , depth : previous.depth + 1 } )
+					return callback( result )
 				} else {
+					previous["incomplete"] = result
 					return callback( previous )
 				}
 			})

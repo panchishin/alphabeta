@@ -16,14 +16,6 @@ module.exports = {
 	},
 
 
-	'constructor creates object' : function(beforeExit, assert) {
-
-		var alphabeta = alphabetaConstructor( { } );
-
-		assert.equal('object' , typeof alphabeta )
-	},
-
-
 	'complete successfully for no available moves' : function(beforeExit, assert) {
 
 		var alphabeta = alphabetaConstructor( { 
@@ -32,7 +24,28 @@ module.exports = {
 			checkWinConditions : function(state) { return false }
 		} );
 
-		alphabeta.setup( {} , 3 )
+		var n = 0;
+		alphabeta.allSteps( function( bestMove ) {
+			n++;
+			assert.equal( false , bestMove )
+		})
+
+	    beforeExit(function() {
+	        assert.equal(1, n, 'Ensure timeout is called');
+	    });
+	},
+
+
+	'complete successfully for no available moves via setup' : function(beforeExit, assert) {
+
+		var alphabeta = alphabetaConstructor( {} )
+
+		alphabeta.setup( { 
+			scoreFunction : function(state , callback) { callback(0) },
+			generateMoves : function(state) { return [] },
+			checkWinConditions : function(state) { return false }
+		} );
+
 		var n = 0;
 		alphabeta.allSteps( function( bestMove ) {
 			n++;
@@ -55,7 +68,6 @@ module.exports = {
 			checkWinConditions : function(state) { return JSON.toString(state) == JSON.toString(onlyMove) }
 		} );
 
-		alphabeta.setup( {} , 3 )
 		var n = 0;
 		alphabeta.allSteps( function( bestMove ) {
 			n++;
@@ -78,7 +90,6 @@ module.exports = {
 			checkWinConditions : function(state) { return JSON.toString(state) == JSON.toString(onlyMove) }
 		} );
 
-		alphabeta.setup( {} , 3 )
 		var n = 0;
 		alphabeta.allSteps( function( bestMove ) {
 			n++;
@@ -168,7 +179,31 @@ module.exports = {
 	    beforeExit(function() {
 	        assert.equal(1, n, 'Ensure timeout is called');
 	    });
+	},
+
+	'complete some levels of chomp in 5 millisecond' : function(beforeExit, assert) {
+
+		var alphabeta = createChompExample(2);
+
+		var n = 0;
+		alphabeta.incrimentDepthForMilliseconds( 5, function( result ) {
+			n++;
+
+			assert.equal( true , 1 < result.depth )
+			assert.equal( true , result.alphabeta != undefined )
+			assert.equal( true , result.depth != undefined )
+			assert.equal( true , false != result.alphabeta.best() )
+			assert.equal( result.depth + 1 , result.incomplete.depth )
+			assert.equal( true , result.incomplete.alphabeta != undefined )
+			assert.equal( false , result.incomplete.alphabeta.best() )
+
+		})
+
+	    beforeExit(function() {
+	        assert.equal(1, n, 'Ensure timeout is called');
+	    });
 	}
+
 
 }
 

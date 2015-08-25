@@ -108,6 +108,8 @@ alphabeta.incrimentDepthForMilliseconds( milliseconds , function( result ) {
 	//    which successfully executed *.stepForMilliseconds*
 	// result.depth is the depth of the clone
 
+
+
 	if ( result.alphabeta && result.alphabeta.best() != undefined ) {
 		var beststate = result.alphabeta.best()
 	} else {
@@ -115,7 +117,21 @@ alphabeta.incrimentDepthForMilliseconds( milliseconds , function( result ) {
 	}
 })
 ```
+The full result object is as follows
+```js
+var result = {
+	alphabeta :	// the AlphaBeta object that successfully completed
+	depth :		// the search depth
 
+	incomplete : {	// only exists if depth > 1
+
+		alphabeta :	// the AlphaBeta that was incomplete.
+					// Use *.step* functions on this to
+					// continue the search were it was left off.
+		depth :		// the search depth of the incomplete alphabeta
+	}
+}
+```
 ### Execution results
 
 If you want to know the best score found you can use 

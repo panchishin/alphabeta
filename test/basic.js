@@ -1,4 +1,3 @@
-//var assert = require("assert")
 var alphabetaConstructor = require("../alphabeta.js")
 
 module.exports = {

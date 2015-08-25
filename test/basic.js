@@ -181,12 +181,12 @@ module.exports = {
 	    });
 	},
 
-	'complete some levels of chomp in 5 millisecond' : function(beforeExit, assert) {
+	'complete some levels of chomp in 10 millisecond' : function(beforeExit, assert) {
 
 		var alphabeta = createChompExample(2);
 
 		var n = 0;
-		alphabeta.incrimentDepthForMilliseconds( 5, function( result ) {
+		alphabeta.incrimentDepthForMilliseconds( 10, function( result ) {
 			n++;
 
 			assert.equal( true , 1 < result.depth )
@@ -195,7 +195,7 @@ module.exports = {
 			assert.equal( true , false != result.alphabeta.best() )
 			assert.equal( result.depth + 1 , result.incomplete.depth )
 			assert.equal( true , result.incomplete.alphabeta != undefined )
-			if ( result.depth < 5 && result.depth > 1 ) {
+			if ( result.depth < 4 && result.depth > 1 ) {
 				assert.equal( false , result.incomplete.alphabeta.best() )
 			}
 

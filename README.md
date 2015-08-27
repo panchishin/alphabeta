@@ -6,6 +6,7 @@ The rational and motivation to use asynchronous calls (specifically to the scori
 
 *[AlphaBeta](https://www.npmjs.com/package/alphabeta), [GeneticAlgorithm](https://www.npmjs.com/package/geneticalgorithm), and [NeuralNet](https://www.npmjs.com/package/neuralnet) are related npm and github projects.*
 
+Section Links : [Construction](#alphabeta-construction) , [Execution](#execution) , and [Examples](#example)
 # Usage
 
 ## AlphaBeta construction
@@ -28,6 +29,8 @@ var alphabeta = require('alphabeta')( config );
 That creates one instance of an AlphaBeta calculator which uses the initial configuration you supply.  All configuration options are optional.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of AlphaBeta each with its own configuration.
 
 ### alphabeta.setup( config )
+> Returns alphabeta
+
 Each new turn or new problem will require you to set the current state of AlphaBeta.  Instead of creating a whole new alphabeta you can reuse the old instance and change any of the configuration parameters you choose.  Here is an example of just chaning the state configuration parameter.
 
 ```js
@@ -42,6 +45,8 @@ Or if you like one-liners
 alphabeta.setup( { state : anotherStateObject } )
 ```
 ### alphabeta.clone( config )
+> Returns a new alphabeta
+
 If you want another alphabeta based on the configuration of an existing alphabeta but with slight changes use the .clone method and pass in only the configuration changes you want.  This is different than *.setup* in that it creates a whole new alphabeta and does not change the current alphabeta.  In this example the search depth is changed to 7:
 
 ```js
@@ -59,6 +64,8 @@ var anotherAlphaBeta = alphabeta.clone( { depth : 7 } )
 ## Execution
 
 ### alphabeta.step( callback )
+> Returns alphabeta
+
 Call the AlphaBeta calculator like so:
 ```js
 alphabeta.step( function( beststate ) {
@@ -74,6 +81,8 @@ alphabeta.step( function( beststate ) {
 'step' moves the calculator ahead by one step.  Depending on the number of moves generated and the depthParameter there could be hundreds, thousands, millions, or more steps needed before the calculator finishes.  alphabeta.best() returns the best state.
 
 ### alphabeta.allSteps( callback )
+> Returns alphabeta
+
 To execute all the steps until AlphaBeta has found the best move for the depth.  *.allSteps* is *non-blocking* which means your UI will keep working.  That's a good thing.  Call like so:
 ```js
 alphabeta.allSteps( function( beststate ) {
@@ -83,6 +92,8 @@ alphabeta.allSteps( function( beststate ) {
 ```
 
 ### alphabeta.stepForMilliseconds( milliseconds , callback )
+> Returns alphabeta
+
 To execute all the steps until AlphaBeta has found the best move for the depth or the number of milliseconds has expired.  Like *.allSteps*, this is also *non-blocking*.  Call like so:
 
 ```js
@@ -99,6 +110,8 @@ alphabeta.stepForMilliseconds( milliseconds , function( beststate ) {
 ```
 
 ### alphabeta.incrimentDepthForMilliseconds( milliseconds , callback )
+> Returns alphabeta
+
 Execute all the steps of AlphaBeta like *.stepForMilliseconds*.  If time premits iteratively try larger depths.  This function is especially useful for a *just in time* methodology such that you only have a given time to get the best aswer you can and want to reach the highest depth possible in that time.  Note : the callback does not return a 'beststate'.  Like *.allSteps*, this is also *non-blocking*.  Call like so:
 
 ```js
@@ -151,6 +164,8 @@ var state = alphabeta.prediction()
 This is the specification of the configuration functions you pass to AlphaBeta
 
 ### scoreFunction( state , callback )
+> Return value ignored
+
 The scoreFunction that you provide is an asynchronous function that evaluates a state like so:
 
 ```js
@@ -162,6 +177,8 @@ function yourScoreFunction( state , scoreCallback ) {
 ```
 
 ### generateMoves( state )
+> Must return a list of states or the empty list '[]' if no moves are available
+
 The generateMovesFunction that you provide is a synchronous function that returns a list of possible states like so:
 
 ```js
@@ -186,6 +203,8 @@ nextPossibleStates = yourGenerateMovesFunction( currentState )
 ```
 
 ### checkWinConditions( state )
+> Must return falsy if not a win condition, truthy otherwise
+
 The checkWinConditions function that you provide is a synchronous function that checks to see if the state is a good end state such as a winning move.  A psudo code implementation may look like so:
 
 ```js
@@ -200,6 +219,8 @@ function yourCheckWinConditionsFunction( state ) {
 ```
 
 ### uniqueKey( state )
+> Must return a string or number
+
 If your Generate Moves function has a chance of creating duplicate moves and or does not prune repeated moves, implement the *.uniqueKey* function.  A unique key for your state is the absolute minimum information needed to identify a state as unique.  Perhaps it is all of your state or perhaps it is state.key.  This is an optional configuration which can lead to a great performance boost and in some cases double the search depth per time.
 ```js
 function uniqueKey( state ) {

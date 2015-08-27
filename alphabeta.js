@@ -176,32 +176,38 @@ function alphabetaConstructor( initialization ) {
 		
 		step : function step( callback ) {
 			var workItem = workQueue.shift()
-			if ( ! workItem ) { return callback( this.best() ) }
+			if ( ! workItem ) { 
+				callback( this.best() ) 
+				return this 
+			}
 
 			if ( workItem.score != undefined ) {
 
 				updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue )
-				return callback()
+				callback()
+				return this
 
 			} else if ( workItem.depth > 0 && checkWinConditions( workItem.state ) ) {
 
 				workItem.score = MAX_SCORE * scoreModifier( workItem.depth )
 				workQueue.unshift(workItem)
-				return callback()
+				callback()
+				return this
 				
 			} else if ( workItem.depth < depth ) {
 				
 				if ( expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyList ) == 0 ) {
 					scoreWorkItem( workItem , callback )
-					return;
+					return this
 				} else {
-					return callback()
+					callback()
+					return this
 				}
 				
 			} else { // if ( workItem.depth >= depth ) {
 
 				scoreWorkItem( workItem , callback )
-				return;
+				return this
 				
 			}
 		},
@@ -209,7 +215,7 @@ function alphabetaConstructor( initialization ) {
 		_stepUntilTime : function stepUntilTime( timeout , callback , count ) {
 			count = count ? count : 0
 			var that = this
-			that.step( function( bestMove ) {
+			return this.step( function( bestMove ) {
 				if ( bestMove === undefined && timeout > (new Date()).getTime() ) {
 					if ( count > 20 ) {
 						setTimeout( function() { that._stepUntilTime( timeout , callback , 0 ) } , 1 )
@@ -223,7 +229,7 @@ function alphabetaConstructor( initialization ) {
 		},
 
 		stepForMilliseconds : function stepForMilliseconds( milliseconds , callback ) {
-			this._stepUntilTime( (new Date()).getTime() + milliseconds , callback )
+			return this._stepUntilTime( (new Date()).getTime() + milliseconds , callback )
 		},
 
 		incrimentDepthForMilliseconds : function incrimentDepthForMilliseconds( milliseconds , callback , previous ) {
@@ -238,7 +244,7 @@ function alphabetaConstructor( initialization ) {
 			// create a new 
 			var alphabeta = that.clone( { depth : previous.depth + 1 } )
 			
-			alphabeta._stepUntilTime( endTime , function( bestState ) {
+			return alphabeta._stepUntilTime( endTime , function( bestState ) {
 				var timeLeft = endTime - (new Date()).getTime()
 				var result = { alphabeta : alphabeta , depth : previous.depth + 1 }
 				if ( timeLeft > 0 && bestState != undefined ) {
@@ -257,7 +263,7 @@ function alphabetaConstructor( initialization ) {
 		},
 
 		allSteps : function allSteps( callback ) {
-			this._stepUntilTime( Number.POSITIVE_INFINITY , callback )
+			return this._stepUntilTime( Number.POSITIVE_INFINITY , callback )
 		}
 	}
 }

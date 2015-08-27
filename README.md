@@ -4,26 +4,27 @@ Minimax implementation using AlphaBeta in Node using *asynchronous* calls to cus
 
 The rational and motivation to use asynchronous calls (specifically to the scoring function) is to support integration with other processes such as DBs and REST calls whereby a scoring function uses a growing data lookup.  This cannot be accomplished in a synchronous way in javascript.
 
-*[AlphaBeta](https://www.npmjs.com/package/alphabeta), [GeneticAlgorithm](https://www.npmjs.com/package/geneticalgorithm), and [NeuralNet](https://www.npmjs.com/package/neuralnet) are related npm and github projects.*
+Section Links : [Construction](#construction) , [Execution](#execution) , [Examples](#example) , [FAQ](#faq) , [Related](#related-ai-projects) , and [References](#references)
 
-Section Links : [Construction](#alphabeta-construction) , [Execution](#execution) , and [Examples](#example)
-# Usage
+# Construction
 
-## AlphaBeta construction
-
-### alphabeta = require('alphabeta')( config )
-Construct an AlphaBeta calculator like so:
-
+### AlphaBeta constructor
+```js
+var AlphaBetaConstructor = require('alphabeta')
+var alphabeta = AlphaBetaConstructor( config )
+```
+Here is the full configuration object and the constructor in-lined.
 ```js
 var config = {
 	scoreFunction 		: scoreFunction,
 	generateMoves		: generateMovesFunction,
 	checkWinConditions 	: checkWinConditionsFunction,
-	uniqueKey			: uniqueKeyFunction, // *NEW* and optional
+	uniqueKey			: uniqueKeyFunction,
 	state 				: yourInitialStateObject,
-	depth 				: theDepthOfSearch /* a number */
+	depth 				: theDepthOfSearch
 }
-var alphabeta = require('alphabeta')( config );
+var AlphaBetaConstructor = require('alphabeta')
+var alphabeta = AlphaBetaConstructor( config )
 ```
 
 That creates one instance of an AlphaBeta calculator which uses the initial configuration you supply.  All configuration options are optional.  If you want to make two different computer opponents battle eachother using two different strategies you'll want to create two instances of AlphaBeta each with its own configuration.
@@ -61,7 +62,7 @@ Again, you can one-liner this
 var anotherAlphaBeta = alphabeta.clone( { depth : 7 } )
 ```
 
-## Execution
+# Execution
 
 ### alphabeta.step( callback )
 > Returns alphabeta
@@ -160,7 +161,7 @@ var state = alphabeta.prediction()
 ```
 
 
-## Configuration
+# Configuration
 This is the specification of the configuration functions you pass to AlphaBeta
 
 ### scoreFunction( state , callback )
@@ -234,7 +235,7 @@ function uniqueKey( state ) {
 
 If you have installed this as a npm dependency first change directory to *node_modules/alphabeta/*.
 
-## Tic Tac Toe
+### Tic Tac Toe
 
 Execute the *tic tac toe* example.  Run the example using the command line like so
 
@@ -252,7 +253,7 @@ node example/tic-tac-toe/index.js 3 1
 node example/tic-tac-toe/index.js 9 9
 ```
 
-## Template
+### Template
 
 There is an empty template with 'TODO' comments to create a fully working computer vs computer scenario.
 
@@ -260,14 +261,14 @@ There is an empty template with 'TODO' comments to create a fully working comput
 node example/template/index.js
 ```
 
-## Chomp (from template)
+### Chomp (from template)
 
 Chomp is a trivial game of two players.  Each player can eat 1, 2, or 3 pieces of a line of 10 pieces long.  The player who eats the last peices wins.  This example uses template/index.js as a boilerplate.
 
 ```bash
 node example/template/chomp.js
 ```
-## Chase (from template)
+### Chase (from template)
 
 Chase is a trivial game of two entities, a preditor and prey.  Each entity can move up to its maximum speed.  There are a lot of win conditions such as the prey getting too far or the preditor running out of energy.  This example uses template/index.js as a boilerplate.
 
@@ -291,10 +292,19 @@ node example/template/chase.js 4
 
 **What is the difference between a move and a state?** A move is the just the state that comes after some previous state.  It's just another name for state.
 
+
+# Related AI Projects
+This is part of a set of related projects.
+
+* [AlphaBeta](https://www.npmjs.com/package/alphabeta)
+* [GeneticAlgorithm](https://www.npmjs.com/package/geneticalgorithm)
+* [NeuralNet](https://www.npmjs.com/package/neuralnet)
+
 # References
 
 * [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
 * [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
+
 
 [npm-url]: https://npmjs.org/package/alphabeta
 [npm-image]: http://img.shields.io/npm/v/alphabeta.svg

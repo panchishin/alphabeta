@@ -1,6 +1,6 @@
 {
   "name": "alphabeta",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "a general purpose minimax framework which uses alpha-beta, an A.I. tool useful for machine decision making",
   "main": "alphabeta.js",
   "devDependencies": {

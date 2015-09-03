@@ -1,4 +1,4 @@
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url]
+[![Issues][issues-image]][issues-url] [![Downloads][downloads-image]][downloads-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url]
 
 Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.  Because of its *asynchronous* nature, AlphaBeta is *non-blocking*.
 
@@ -308,12 +308,14 @@ This is part of a set of related projects.
 * [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
 
 
-[npm-url]: https://npmjs.org/package/alphabeta
-[npm-image]: http://img.shields.io/npm/v/alphabeta.svg
+[issues-url]: https://github.com/panchishin/alphabeta/issues
+[issues-image]: https://img.shields.io/github/issues/panchishin/alphabeta.svg
 
 [gitter-url]: https://gitter.im/panchishin/alphabeta
 [gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png
+
 [downloads-image]: http://img.shields.io/npm/dm/alphabeta.svg
+[downloads-url]: https://www.npmjs.com/~panchishin
 
 [travis-url]: https://travis-ci.org/panchishin/alphabeta
 [travis-image]: http://img.shields.io/travis/panchishin/alphabeta.svg

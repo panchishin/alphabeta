@@ -1,7 +1,9 @@
 function createInitialState() {
 	var someState = {};
 
-	// TODO populate someState with important info about the problem or game
+	// TODO populate someState with important info about the problem or game.
+	// This could be a classic setup like chess where the beginning of the game
+	// is always the same or it could be from a database of saved games.
 
 	return someState;
 }
@@ -11,6 +13,8 @@ function scoreFunction( state , callback ) {
 	var score = 0;
 
 	// TODO update score based on state
+	// in your first implementation try just using a very simple scoring method
+	// like number of pieces player one has minus number of pieces player two has.
 
 	callback( score );
 }
@@ -20,6 +24,7 @@ function generateMoves( state ) {
 	var possibleStates = [];
 
 	// TODO use logic and data from the current state to generate other possible states.
+	// in your first implementation try just generating all possible moves from the current state.
 
 	return possibleStates;
 }
@@ -49,14 +54,15 @@ function doOneRound( state ) {
 	console.log("The state is:")
 	console.log( state );
 
-	var depth = 1;	// TODO decide on how many moves to look ahead.  For now it is set to 2
+	var depth = 1;	// TODO decide on how many moves to look ahead.
+
 	alphabeta.setup( { state : state , depth : depth } )
 
 	alphabeta.allSteps( function ( bestNextState ) {
 		if ( bestNextState && ! checkWinConditions( bestNextState ) ) { 
-			doAnotherRound(bestNextState);
-		} else if ( bestNextState && checkWinConditions( bestNextState ) ) {
 			doAnotherRound( bestNextState );
+		} else if ( bestNextState && checkWinConditions( bestNextState ) ) {
+			handleWin( bestNextState );
 		} else {
 			handleNotWinAndNoValidMoves( state );
 		}

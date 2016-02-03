@@ -5,11 +5,11 @@ var MAX_SCORE = Math.pow(10,50);
 function scoreModifier( stateDepth ) {
 	return ( stateDepth % 2 ) * 2 - 1  // odd levels are players state, even are opponent
 }
-	
+
 function calculateTopLevel( workQueue ) { 
 	return workQueue[0] ? Math.max( workQueue[0].depth - 1 , 0 ) : 0
 }
-	
+
 function prune( depth , workQueue ) {
 	while( workQueue[0] && workQueue[0].depth > depth ) {
 		workQueue.shift()
@@ -72,7 +72,6 @@ function expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyL
 	}
 
 	if ( uniqueKey != undefined && keyList[uniqueKey(workItem.state)] == true ) {
-		//process.stdout.write(".")
 		return 0
 	}
 	if ( uniqueKey ) keyList[uniqueKey(workItem.state)] = true

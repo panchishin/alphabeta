@@ -1,4 +1,4 @@
-[![Issues][issues-image]][issues-url] [![Downloads][downloads-image]][downloads-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url]
+[![Downloads][downloads-image]][downloads-url] [![Auto Test Status][travis-image]][travis-url] [![license][license-image]][license-url] [![Gitter chat][gitter-image]][gitter-url]
 
 Minimax implementation using AlphaBeta in Node using *asynchronous* calls to customizable game logic, scoring, and move generation.  Because of its *asynchronous* nature, AlphaBeta is *non-blocking*.
 
@@ -307,9 +307,6 @@ This is part of a set of related projects.
 * [Instructor: Patrick Winston from MIT](https://www.youtube.com/watch?v=STjW3eH0Cik)
 * [Wikipedia entry for Minimax](https://en.wikipedia.org/wiki/Minimax)
 
-
-[issues-url]: https://github.com/panchishin/alphabeta/issues
-[issues-image]: https://img.shields.io/github/issues/panchishin/alphabeta.svg
 
 [gitter-url]: https://gitter.im/panchishin/alphabeta
 [gitter-image]: https://badges.gitter.im/panchishin/alphabeta.png

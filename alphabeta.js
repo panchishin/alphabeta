@@ -231,7 +231,7 @@ function alphabetaConstructor( initialization ) {
 			return this._stepUntilTime( (new Date()).getTime() + milliseconds , callback )
 		},
 
-		incrimentDepthForMilliseconds : function incrimentDepthForMilliseconds( milliseconds , callback , previous ) {
+		incrementDepthForMilliseconds : function incrementDepthForMilliseconds( milliseconds , callback , previous ) {
 			var that = this
 			previous = previous ? previous : {
 				alphabeta : this,
@@ -248,7 +248,7 @@ function alphabetaConstructor( initialization ) {
 				var result = { alphabeta : alphabeta , depth : previous.depth + 1 }
 				if ( timeLeft > 0 && bestState != undefined ) {
 					setTimeout( function() {
-						alphabeta.incrimentDepthForMilliseconds( 
+						alphabeta.incrementDepthForMilliseconds( 
 							timeLeft , callback , result
 						)
 					}, 1)

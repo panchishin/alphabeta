@@ -54,7 +54,7 @@ module.exports = {
 		var alphabeta = createChompExample(1);
 
 		var n = 0;
-		alphabeta.incrimentDepthForMilliseconds( 500, function( result ) {
+		alphabeta.incrementDepthForMilliseconds( 500, function( result ) {
 			n++;
 
 			assert.equal( true , result.depth >= 6 )
@@ -82,7 +82,7 @@ module.exports = {
 		var alphabeta = createChompExample(2);
 
 		var n = 0;
-		alphabeta.incrimentDepthForMilliseconds( 10, function( result ) {
+		alphabeta.incrementDepthForMilliseconds( 10, function( result ) {
 			n++;
 
 			assert.equal( true , 1 < result.depth )

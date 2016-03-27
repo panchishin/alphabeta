@@ -110,13 +110,13 @@ alphabeta.stepForMilliseconds( milliseconds , function( beststate ) {
 })
 ```
 
-### alphabeta.incrimentDepthForMilliseconds( milliseconds , callback )
+### alphabeta.incrementDepthForMilliseconds( milliseconds , callback )
 > Returns alphabeta
 
 Execute all the steps of AlphaBeta like *.stepForMilliseconds*.  If time premits iteratively try larger depths.  This function is especially useful for a *just in time* methodology such that you only have a given time to get the best aswer you can and want to reach the highest depth possible in that time.  Note : the callback does not return a 'beststate'.  Like *.allSteps*, this is also *non-blocking*.  Call like so:
 
 ```js
-alphabeta.incrimentDepthForMilliseconds( milliseconds , function( result ) {
+alphabeta.incrementDepthForMilliseconds( milliseconds , function( result ) {
 
 	// result.alphabeta is a clone of alphabeta 
 	//    which successfully executed *.stepForMilliseconds*

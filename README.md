@@ -19,9 +19,9 @@ var config = {
 	scoreFunction 		: scoreFunction,
 	generateMoves		: generateMovesFunction,
 	checkWinConditions 	: checkWinConditionsFunction,
-	uniqueKey			: uniqueKeyFunction,
-	state 				: yourInitialStateObject,
-	depth 				: theDepthOfSearch
+	uniqueKey		: uniqueKeyFunction,
+	state 			: yourInitialStateObject,
+	depth 			: theDepthOfSearch
 }
 var AlphaBetaConstructor = require('alphabeta')
 var alphabeta = AlphaBetaConstructor( config )

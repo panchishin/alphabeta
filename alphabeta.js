@@ -10,6 +10,8 @@ function calculateTopLevel( workQueue ) {
 	return workQueue[0] ? Math.max( workQueue[0].depth - 1 , 0 ) : 0
 }
 
+// remove all work from the queue that is greater than a given depth
+// return the top level in the workQueue
 function prune( depth , workQueue ) {
 	while( workQueue[0] && workQueue[0].depth > depth ) {
 		workQueue.shift()
@@ -64,6 +66,7 @@ function updateAllParentsAlphaBetaBasedOnScore( workItem , workQueue ) {
 
 }
 
+// returns the number of items added to the workQueue
 function expandWorkItem( generateMoves , workItem , workQueue , uniqueKey , keyList ) {
 
 	if ( workItem.previous ) {
